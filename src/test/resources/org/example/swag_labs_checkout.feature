@@ -1,5 +1,7 @@
-# Додайте сюди сценарії які перевіряють так званий Checkout Flow, тобто процес оформлення замовлення
-  # Вхідною точкою можна вважати момент, коли в корзину додано хоча б один товар, вихідна точка - оформлене замовлення
-  # Приклади - можна купити один окремий товар, можна купити декілька товарів в одноиму замовленні
-  # Можна додавати і видаляти товари з корзини
-  # При успішному оформленні замовлення має відображатися повідомлення про успішне оформлення і т.п.
+Feature: Checkout
+  Scenario: Successful order placement
+    Given the user has items in the cart
+    When the user proceeds to checkout
+    And enters valid customer information
+    And completes the order
+    Then the order should be successfully placed

@@ -1,36 +1,36 @@
 package org.example.steps;
 
-import io.cucumber.java.en.*;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.example.pages.LoginPage;
+import org.example.pages.ProductsPage;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
 
 public class SwagLabsLoginSteps {
 
-    // Це приклад файлу з визначенням степів, вам треба буде допис  ати кроки сюди, а також, якщо потрібно,
-    // Створити подібні файли для інших сценаріїв
-    // Загальна структура проєкту залишається на ваш розсуд, проте бажано, щоб вона була чистою і логічною
+    WebDriver driver;
+    LoginPage loginPage;
+    ProductsPage productsPage;
 
-    // Перед початком роботи видаліть степдефінішни, які не є релевантними вашому проєкту, щоб вони не плуталися під ногами
-    @Given("I am somewhere")
-    public void iAmSomewhere() {
-
+    @Given("the user is on the login page")
+    public void theUserIsOnTheLoginPage() {
+        driver = new ChromeDriver();
+        driver.get("https://www.saucedemo.com/");
+        loginPage = new LoginPage(driver);
     }
 
-    @When("I do something")
-    public void iDoSomething() {
-
+    @When("the user logs in with valid credentials")
+    public void theUserLogsInWithValidCredentials() {
+        loginPage.login("standard_user", "secret_sauce");
     }
 
-    @Then("something good has happened")
-    public void somethingGoodHasHappened() {
-
-    }
-
-    @And("another expected thing has happened")
-    public void anotherExpectedThingHasHappened() {
-
-    }
-
-    @But("a thing we don{string}t happen")
-    public void aThingWeDonTExpectDidnTHappen() {
-
+    @Then("the user should see the products page")
+    public void theUserShouldSeeTheProductsPage() {
+        productsPage = new ProductsPage(driver);
+        Assert.assertTrue(driver.getCurrentUrl().contains("inventory.html"));
+        driver.quit();
     }
 }

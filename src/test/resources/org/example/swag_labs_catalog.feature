@@ -1,2 +1,10 @@
-# Додайте сюди сценарії, які перевіряють сторінку зі списком товарів, а також сторінку з деталями товару
-# Подумайте, які з них ви покрили б в першу чергу, що важливо користувачу інтенет-магазину? Що важливо власнику інтернет-магазину?
+Feature: Shopping Cart
+  Scenario: Add item to the cart
+    Given the user is logged in
+    When the user adds a "Sauce Labs Backpack" to the cart
+    Then the item should be displayed in the cart
+
+  Scenario: Remove item from the cart
+     Given the user has added "Sauce Labs Backpack" to the cart
+     When the user removes the "Sauce Labs Backpack" from the cart
+     Then the cart should be empty

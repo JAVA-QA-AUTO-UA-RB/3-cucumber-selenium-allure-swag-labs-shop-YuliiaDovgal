@@ -1,14 +1,16 @@
 Feature: Swag Labs User Login
 
-  Scenario: Log in with correct credentials
-    Given I am somewhere
-    When I do something
-    Then something good has happened
-    And another expected thing has happened
-    But a thing we don't expect didn't happen
+  Scenario: Successful login with valid credentials
+      Given the user is on the login page
+      When the user logs in with valid credentials
+      Then the user should see the products page
 
-    # Перший сценарій дано як приклад
-    # Допишіть сюди свої сценарії як відповідають фічі, що зараз тестується (можуть бути як позитивні так і негативні)
-    # Приклади сценаріїв: логінізація з існуючим валідним користувачем, логінізація з кредами неіснуючого користувача,
-    # логінізація з кредами користувача, який є заблокованим (locked_out_user)
-  # Сюди має також увійти сценарії (вилогінювання/виходу/Log out) з сайту, бо ми маємо переконатися що при бажанні користувач може вийти
+  Scenario: Unsuccessful login with invalid credentials
+      Given the user is on the login page
+      When the user logs in with invalid credentials
+      Then an error message should be displayed
+
+   Scenario: Successful logout from the site
+      Given the user is logged in with valid credentials
+      When the user logs out from the site
+      Then the user should be redirected to the login page
