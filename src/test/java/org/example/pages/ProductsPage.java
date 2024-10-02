@@ -4,10 +4,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.By;
-import java.util.List;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import java.time.Duration;
+
 
 
 public class ProductsPage extends BasePage {
+
+    By logoutButton = By.id("logout_sidebar_link");
 
     public ProductsPage(WebDriver driver) {
         super(driver);
@@ -27,16 +32,21 @@ public class ProductsPage extends BasePage {
     }
 
 
-    public void removeItemFromCart(String itemName) {
-        WebElement removeButton = driver.findElement(By.xpath("//div[text()='" + itemName + "']/ancestor::div[@class='inventory_item']//button[text()='Remove']"));
-        removeButton.click();
-    }
+    public void clickLogout() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-    public boolean isCartEmpty() {
-        // Find all elements representing items in the cart
-        List<WebElement> itemsInCart = driver.findElements(By.className("cart_item"));
+        WebElement menuButton = driver.findElement(By.id("react-burger-menu-btn"));
+        if (menuButton != null && menuButton.isDisplayed() && menuButton.isEnabled()) {
+            menuButton.click();
 
-        // If the list is empty, the cart is empty
-        return itemsInCart.size() == 0;
+            WebElement logoutLink = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("logout_sidebar_link")));
+            if (logoutLink != null && logoutLink.isDisplayed() && logoutLink.isEnabled()) {
+                logoutLink.click();
+            } else {
+                System.out.println("Logout link is not visible or enabled.");
+            }
+        } else {
+            System.out.println("Menu button is not visible or enabled.");
+        }
     }
 }

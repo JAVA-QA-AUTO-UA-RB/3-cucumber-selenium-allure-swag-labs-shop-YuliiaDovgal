@@ -5,6 +5,6 @@ Feature: Shopping Cart
     Then the item should be displayed in the cart
 
   Scenario: Remove item from the cart
-     Given the user has added "Sauce Labs Backpack" to the cart
-     When the user removes the "Sauce Labs Backpack" from the cart
-     Then the cart should be empty
+    Given the user has added "Sauce Labs Backpack" to the cart
+    When the user removes the "Sauce Labs Backpack" from the cart
+    Then the cart should be empty
